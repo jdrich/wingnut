@@ -1,8 +1,18 @@
 {
+    "name": "Wingnut",
+    "description": "Static Mustache/Markdown site generator for PHP.",
+    "license": "MIT",
     "require": {
+        "maximebf/consolekit": "1.0.*",
         "symfony/filesystem": "2.6.*",
         "symfony/finder": "2.6.*",
         "erusev/parsedown": "1.1.*",
-        "mustache/mustache": "2.7.*"
+        "mustache/mustache": "2.7.*",
+        "dompdf/dompdf" : "0.6.*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Wingnut\\": "src/"
+        }
     }
 }

@@ -1,0 +1,7 @@
+#!/bin/sh
+dir=$(dirname $0)
+script="/wingnut.php"
+
+file=$dir$script
+
+php $file $@
