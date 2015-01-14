@@ -1,0 +1,8 @@
+{
+    "require": {
+        "symfony/filesystem": "2.6.*",
+        "symfony/finder": "2.6.*",
+        "erusev/parsedown": "1.1.*",
+        "mustache/mustache": "2.7.*"
+    }
+}
