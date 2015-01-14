@@ -1,6 +1,6 @@
 <?php
 
-namespace Wingnut;
+namespace Wingnut\Console;
 
 use \ConsoleKit\TextWriter;
 
