@@ -2,6 +2,13 @@
 
 require_once 'vendor/autoload.php';
 
-$command = Wingnut\CommandParser()->parse($argv);
+$console = new ConsoleKit\Console(
 
-var_dump($command);
+);
+
+// The WindowsTextWriter strips all the linux/unix color codes from the output.
+if(strpos(strtolower(php_uname()), 'windows') !== false) {
+    $console->setTextWriter(new Wingnut\WindowsTextWriter());
+}
+
+$console->run();
