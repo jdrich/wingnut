@@ -3,12 +3,12 @@
 require_once 'vendor/autoload.php';
 
 $console = new Wingnut\Console\Console();
+$console->addCommand(new Wingnut\Help($console), 'help', true);
 $console->addCommands([
-    new Wingnut\Help($console),
     new Wingnut\Find($console),
     //new Wingnut\Dryrun($console),
     //new Wingnut\Publish($console),
-    //new Wingnut\Explain($console),
+    new Wingnut\Explain\Command($console),
     //new Wingnut\PublishAll($console)
 ]);
 
@@ -17,7 +17,7 @@ $console->addCommands([
  *
  * wingnut Find (filter) - lists all the files discovered by the filter
  * wingnut Dryrun (publisher) - Creates all of the files associated with the publish cycle and dumps them into `tmp`
- * wingnut Publish (publisheR) - Creates all of the files associated with the publish cycle and copies them to the destination directory.
+ * wingnut Publish (publisher) - Creates all of the files associated with the publish cycle and copies them to the destination directory.
  * wingnut Explain (config filename) - Explains all of the configuration delineated in the configuration file.
  * wingnut publishAll - Runs all publishers sequentially.
  * wingnut help find
