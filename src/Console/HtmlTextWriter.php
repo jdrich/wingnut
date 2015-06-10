@@ -4,9 +4,6 @@ namespace Wingnut\Console;
 
 use \ConsoleKit\TextWriter;
 
-/**
- * This class is the same as the StdTextWriter except it strips all of the color codes from the output.
- */
 class HtmlTextWriter implements TextWriter {
     private $header = '<html><head><title>Wingnut Command Output</title></head><body>';
 
@@ -37,7 +34,7 @@ class HtmlTextWriter implements TextWriter {
         if($raw) {
             $string = $this->stripCodes($text);
         } else {
-            $string = '<p>' . htmlspecialchars($this->stripCodes($text)) . '</p>';
+            $string = '<pre>' . htmlspecialchars($this->stripCodes($text)) . '</pre>';
         }
 
         $string = str_replace(' ', '&nbsp;', $string) . "\n";

@@ -1,0 +1,16 @@
+{
+    // A list of patterns to search and find site data for.
+    "filters": {
+        // The filter name is used in publishing.
+        "posts": {
+            // Required. The pattern of files to search for.
+            "pattern": "/(.*)\\.json/",
+            // Optional. The filter class for generating data.
+            "class": "Wingnut\\Filter",
+            // Optional. The directory to search for files in.
+            "directory": "posts",
+            // Optional. A mapping of filename to various values.
+            "map": [ "slug" ]
+        }
+    }
+}

@@ -11,9 +11,9 @@ final class Environment {
         if($config_file === false) {
             $config_file = 'config.json';
         }
-
-        $this->config = @json_decode(file_get_contents($config_file), true);
-
+        
+        $this->config = @json_decode((new \MatthiasMullie\Minify\JS($config_file))->minify(), true);
+        
         if($this->config === null) {
             throw new \RuntimeException('Could not load config file: ' . $config_file);
         }

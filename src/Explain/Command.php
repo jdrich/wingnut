@@ -24,9 +24,12 @@ class Command extends \ConsoleKit\Command {
             return;
         }
         
-        @$file = file_get_contents($filename);
+        @$file = (new \MatthiasMullie\Minify\JS($filename))->minify();
         
-        if($file === false) {
+        // Minify returns the filename on failure.
+        $failure = $file == $filename;
+        
+        if($failure) {
             $this->writeln('Could not read: ' . $filename, Colors::RED);
             
             return;
@@ -41,7 +44,10 @@ class Command extends \ConsoleKit\Command {
                 $this->writeln('Invalid configuration file format: ' . $filename, Colors::RED);
                 
                 return;
-            }    
+            }
+            
+            // @todo Actually explain things.
+            // @see $this->explanations.
         }
     }  
     
@@ -49,9 +55,10 @@ class Command extends \ConsoleKit\Command {
         $config = json_decode($file);
         
         if($config === null) {
-            $this->fail('JSON Decode error: ' . Json::mapError(json_last_error()) . ': ' . json_last_error_msg());
+            $this->fail('JSON Decode error: ' . Json::mapError(json_last_error()));
         } else {
-            
+            // @todo Actually test the configuration file for necessary values.
+            // @see $this->required
         }
         
         $this->end();
@@ -62,11 +69,15 @@ class Command extends \ConsoleKit\Command {
     }
     
     private function end() {
-        $this->writeln('Your configuration file is invalid. See below for errors.', Colors::RED);
-        
-        foreach($this->messages as $message) {
-            $this->writeln('');
-            $this->writeln(' * ' . $message, Colors::RED);
+        if(count($this->messages)) {
+            $this->writeln('Your configuration file is invalid. See below for errors.', Colors::RED);
+            
+            foreach($this->messages as $message) {
+                $this->writeln('');
+                $this->writeln(' * ' . $message, Colors::RED);
+            }
+        } else {
+            $this->writeln('Your configuratio file is valid!', Colors::GREEN);
         }
     }
 }
