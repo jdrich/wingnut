@@ -2,10 +2,12 @@
 
 namespace Wingnut;
 
-final class Find extends Console\Command {
+final class Map extends Console\Command {
     public function execute(array $args, array $options = []) {
-        $files = $this->environment->getFilter($args[0]);
-
+        $map = $this->environment->getMap($args[0]);
+        
+        var_dump($map); die();
+        
         foreach($files as $file) {
             $this->writeln($file['file']);
 

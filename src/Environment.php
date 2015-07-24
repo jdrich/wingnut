@@ -28,7 +28,6 @@ final class Environment {
 
         $filter = $filters[$filter_name];
 
-
         $class = isset($filter['class']) ? $filter['class'] : 'Wingnut\Filter';
         $pattern = isset($filter['pattern']) ? $filter['pattern'] : '*';
         $map = isset($filter['map']) ? $filter['map'] : null;
@@ -37,5 +36,38 @@ final class Environment {
         $filter = new $class(new Finder());
 
         return $filter->filter($pattern, $map, $directory);
+    }
+    
+    public function getMap($map_name) {
+        $maps = $this->config['maps'];
+        
+        $config = $this->config['maps'][$map_name];
+        
+        $map_class = $config['class'];
+        
+        if(!class_exists($map_class)) {
+            throw new \InvalidArgumentException('Map class not found: ' . $map_class);
+        }
+        
+        $map = new $map_class();
+        
+        if(!isset($config['type'])) {
+            $config['type'] = 'filter';
+        }
+        
+        switch($config['type']) {
+            case 'filter': 
+                $items = $this->getFilter($config['source']); 
+                
+                break;
+            case 'map': 
+                $items = $this->getMap($config['source']);
+                
+                break;
+            default:
+                throw new \InvalidArgumentException('Map type invalid: ' . $config['type']);
+        }
+        
+        return $map($items);
     }
 }

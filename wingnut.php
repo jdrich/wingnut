@@ -8,6 +8,7 @@ $console = new Wingnut\Console\Console();
 $console->addCommand(new Wingnut\Help($console), 'help', true);
 $console->addCommands([
     new Wingnut\Find($console, $environment),
+    new Wingnut\Map($console, $environment),
     //new Wingnut\Dryrun($console),
     //new Wingnut\Publish($console),
     new Wingnut\Explain\Command($console),
