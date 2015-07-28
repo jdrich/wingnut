@@ -26,12 +26,17 @@
             // Optional. Parameters for the map constructor.
             "options": {}
         },
-        "random": {
+        "reverse": {
+            "type": "map",
+            "source": "order",
+            "class": "Wingnut\\Map\\Reverse"
+        },
+        "order": {
             "type": "map",
             "source": "posts",
-            "class": "Wingnut\\Map\\Random",
+            "class": "Wingnut\\Map\\Order",
             "options": {
-                "count": 2
+                "fields": [ "file" ]
             }
         }
     }
