@@ -6,18 +6,36 @@ final class Map extends Console\Command {
     public function execute(array $args, array $options = []) {
         $map = $this->environment->getMap($args[0]);
         
-        var_dump($map); die();
+        $first = true;
         
-        foreach($files as $file) {
-            $this->writeln($file['file']);
-
-            foreach($file as $key => $value) {
-                if($key == 'file') {
-                    continue;
-                }
-
-                $this->writeln('    ' . $key . ' = ' . $value);
+        foreach($map as $item) {
+            $first || $this->writeln('---');
+            
+            $this->nestedPrint($item);
+            
+            $first = false;
+        }
+    }
+    
+    protected function nestedPrint($item, $depth = 0) {
+        if(!is_array($item)) {
+            $this->writeNested((string)$item, $depth);
+            
+            return;
+        }
+        
+        foreach($item as $key => $value) {
+            if(is_int($key)) {
+                $this->nestedPrint($value, $depth + 1);
+            } else {
+                $this->writeNested($key, $depth);
+                
+                $this->nestedPrint($value, $depth + 1);
             }
         }
+    }
+    
+    protected function writeNested($string, $depth) {
+        $this->writeln(str_repeat('  ', $depth) . $string);
     }
 }

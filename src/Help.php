@@ -11,6 +11,8 @@ Usage: wingnut [COMMAND] [OPTIONS]
 
   find <filter>
       Executes the selected filter and returns the list of discovered files.
+  map <map>
+      Executes the selected map and returns the formatted output.
   dryrun <publisher>
       Executes the selected publisher, publishing files to the system temp dir.
   publish <publisher>
@@ -44,6 +46,20 @@ HELP;
 Executes the selected filter and returns the list of discovered files.
 
 Usage: wingnut find [FILTER]
+
+    --format=output-format
+        The output format for the script. Can be one of (text|html).
+    --output=output-file
+        When specified, the output of this command is saved to the specified
+        file.
+    --config=config-file
+        The configuration file where the filter is defined.
+HELP;
+
+    private $help_map = <<<HELP
+Executes the selected map and returns the formatted output.
+
+Usage: wingnut map [MAP]
 
     --format=output-format
         The output format for the script. Can be one of (text|html).
