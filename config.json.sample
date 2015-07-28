@@ -1,7 +1,7 @@
 {
     // A list of patterns to search and find site data for.
     "filters": {
-        // The filter name is used in publishing.
+        // The filter name is used by some maps.
         "posts": {
             // Required. The pattern of files to search for.
             "pattern": "/(.*)\\.json/",
@@ -11,6 +11,28 @@
             "directory": "posts",
             // Optional. A mapping of filename to various values.
             "map": [ "slug" ]
+        }
+    },
+    // A list of maps that convert collections of data to other representations.
+    "maps": {
+        // The map name is used by publishers and other maps.
+        "posts": {
+            // Required. The type of source ("filter" or "map").
+            "type": "filter",
+            // Required. The name of the source.
+            "source": "posts",
+            // Optional. The type of map. Defaults to an Identity map.
+            "class": "Wingnut\\Map\\JsonFile",
+            // Optional. Parameters for the map constructor.
+            "options": {}
+        },
+        "random": {
+            "type": "map",
+            "source": "posts",
+            "class": "Wingnut\\Map\\Random",
+            "options": {
+                "count": 2
+            }
         }
     }
 }

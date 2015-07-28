@@ -41,7 +41,11 @@ final class Environment {
     public function getMap($map_name) {
         $maps = $this->config['maps'];
         
-        $config = $this->config['maps'][$map_name];
+        if(!isset($maps[$map_name])) {
+            throw new \InvalidArgumentException('Map not defined by configuration: ' . $map_name);
+        }
+        
+        $config = $maps[$map_name];
         
         $map_class = $config['class'];
         
@@ -49,7 +53,9 @@ final class Environment {
             throw new \InvalidArgumentException('Map class not found: ' . $map_class);
         }
         
-        $map = new $map_class();
+        $options = isset($config['options']) ? $config['options'] : [];
+        
+        $map = new $map_class($options);
         
         if(!isset($config['type'])) {
             $config['type'] = 'filter';
